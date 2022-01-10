@@ -20,6 +20,7 @@ DELETE_OUTPUT_DIRECTORY = True
 #DISQUS_SITENAME = ""
 #GOOGLE_ANALYTICS = ""
 
-#OVERRIDE Location of theme, the repos will be checkedout
-# during GitHUb Action
-THEME_PATH = 'theme/pelican-themes/'
+#OVERRIDE Location of theme, the repos will be checked out
+# during GitHub Action
+#THEME = 'GITHUB_ACTION_THEME_LOC'
+THEME = 'themes/pelican-bootstrap3'

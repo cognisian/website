@@ -71,9 +71,7 @@ EXTRA_PATH_METADATA = {
 #
 # THEME
 #
-THEME_NAME = 'pelican-bootstrap3'
-THEME_PATH = '/home/schalmers/Projects/pelican-themes/'
-THEME = THEME_PATH + THEME_NAME
+THEME = '/home/schalmers/Projects/pelican-themes/pelican-bootstrap3'
 BOOTSTRAP_THEME = 'flatly'
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 
