@@ -8,6 +8,6 @@ and musings.
 Web Sites
 ---------
 | artificialbelligerence.com - Ideas and musings around artifical
-intelligence, machine learning etc.
-| cognisian.com - My business/professional - Inactive at moment
-| seandchalmers.com - My personal/resume page - Inactive at moment
+intelligence, machine learning etc.  
+| cognisian.com - My business/professional - Inactive at moment  
+| seandchalmers.com - My personal/resume page - Inactive at moment  
