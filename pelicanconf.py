@@ -10,7 +10,7 @@ DEFAULT_LANG = 'en'
 
 PLUGIN_PATHS = [
     "/home/schalmers/Projects/pelican-plugins",
-    "plugins/pelican-plugins"
+    "plugins"
 ]
 PLUGINS = ["sitemap", 'i18n_subsites']
 
