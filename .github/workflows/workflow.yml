@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Python
+        id: install-python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -49,9 +50,9 @@ jobs:
         run: |
           pelican content --output output --settings publishconf.py
           
-      - name: Push to production
-        # if: success()
-        id: push-to-gce
+      #- name: Push to production
+      # if: success()
+      # id: push-to-gce
 # deploy:
 #   runs-on:
 #   needs: build
