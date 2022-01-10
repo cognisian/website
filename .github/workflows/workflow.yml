@@ -5,11 +5,10 @@ on:
       - master
 jobs:
   build:
-    name: Setup
+    name: Setup Website
     runs-on: ubuntu-latest
     steps:
       - name: Install Python
-        id: install-python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -32,14 +31,12 @@ jobs:
           pip install -r requirements.txt
       
       - name: Install Pelican plugins
-        id: checkout-pelican-plugins
         uses: actions/checkout@v2
         with:
           repository: 'getpelican/pelican-plugins'
           path: 'plugins'
         
       - name: Install Pelican themes
-        id: checkout-pelican-themes
         uses: actions/checkout@v2
         with:
           repository: 'getpelican/pelican-themes'
@@ -49,12 +46,22 @@ jobs:
         id: generate-website
         run: |
           pelican content --output output --settings publishconf.py
+
+      - name: Package the website artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: website-output
+          path: |
+            output/
+          retention-days: 1
           
-      #- name: Push to production
-      # if: success()
-      # id: push-to-gce
-# deploy:
-#   runs-on:
-#   needs: build
-#   steps:
+  deploy:
+    name: Deploy Website
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Get website artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website-output
         
