@@ -1,0 +1,59 @@
+name: Website - Production
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+      - name: Checkout website source
+        id: checkout-master
+        uses: actions/checkout@v2
+        
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: pelican-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            pelican-
+            
+      - name: Install Pelican and Dependencies
+        run: |
+          python -m pip install -U pip 
+          pip install -r requirements.txt
+      
+      - name: Install Pelican plugins
+        id: checkout-pelican-plugins
+        uses: actions/checkout@v2
+        with:
+          repository: 'pelican/pelican-plugins'
+          path: 'plugins'
+        
+      - name: Install Pelican themes
+        id: checkout-pelican-themes
+        uses: actions/checkout@v2
+        with:
+          repository: 'pelican/pelican-themes'
+          path: 'themes'
+          
+      - name: Generate website
+        id: generate-website
+        run: |
+          pelican content --output output --settings publishconf.py
+          
+      - name: Push to production
+        # if: success()
+        id: push-to-gce
+# deploy:
+#   runs-on:
+#   needs: build
+#   steps:
+        

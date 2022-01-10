@@ -1,0 +1,10 @@
+# Pelican/Python stuff
+*~
+._*
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.py[cod]
+__pycache__
+output
