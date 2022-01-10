@@ -35,14 +35,14 @@ jobs:
         id: checkout-pelican-plugins
         uses: actions/checkout@v2
         with:
-          repository: 'pelican/pelican-plugins'
+          repository: 'getpelican/pelican-plugins'
           path: 'plugins'
         
       - name: Install Pelican themes
         id: checkout-pelican-themes
         uses: actions/checkout@v2
         with:
-          repository: 'pelican/pelican-themes'
+          repository: 'getpelican/pelican-themes'
           path: 'themes'
           
       - name: Generate website
