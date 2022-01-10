@@ -7,7 +7,7 @@ and musings.
 
 Web Sites
 ---------
-cognisian.com - My business/professional
-artificialbelligerence.com - Ideas and musings around artifical
+| artificialbelligerence.com - Ideas and musings around artifical
 intelligence, machine learning etc.
-seandchalmers.com - My personal/resume page
+| cognisian.com - My business/professional - Inactive at moment
+| seandchalmers.com - My personal/resume page - Inactive at moment
