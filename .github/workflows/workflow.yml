@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   build:
-    name: Setup Website
+    name: Build Website
     runs-on: ubuntu-latest
     steps:
       - name: Install Python
@@ -59,9 +59,27 @@ jobs:
     name: Deploy Website
     runs-on: ubuntu-latest
     needs: [build]
+   
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      
     steps:
+      - name: Setup Google Authorization
+        uses: 'google-github-actions/auth@v0'
+        with:
+          workload_identity_provider: '${{ secrets.WORKLOAD_ID_PROVIDER }}'
+          service_account: '${{ secrets.DEPLOY_SERVICE_ACCOUNT'
+        
+      - name: 'Set up gcloud CLI'
+        uses: 'google-github-actions/setup-gcloud@v0'
+      
       - name: Get website artifact
         uses: actions/download-artifact@v2
         with:
           name: website-output
+          
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+      
         
