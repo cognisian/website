@@ -86,4 +86,5 @@ jobs:
       - name: 'Use gcloud CLI'
         run: |
           gcloud compute scp --recurse web-files/* webserver:/var/www/artificialbelligerence.com/htdocs --zone=northamerica-northeast2-a
+          gcloud compute instances remove-metadata webserver --keys=runner --zone=northamerica-northeast2-a
       
