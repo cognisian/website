@@ -85,7 +85,7 @@ jobs:
           
       - name: 'Copy Website files to instance'
         run: |
-          gcloud compute scp --recurse web-files/* webserver:/var/www/artificialbelligerence.com/htdocs --zone=northamerica-northeast2-a
+          gcloud compute scp --recurse web-files/* webserver:/var/www/artificialbelligerence.com/htdocs --ssh-key-expire-after=+pt5m --zone=northamerica-northeast2-a
           echo "$(ls -al .ssh)"
           echo "$(cat .ssh/google_compute_engine.pub)"
           echo "KEY=${{ env.RUNNER_NAME }}:$(cat .ssh/google_compute_engine.pub)" >> $GITHUB_ENV
