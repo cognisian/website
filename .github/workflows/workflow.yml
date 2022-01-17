@@ -89,5 +89,8 @@ jobs:
           
       - name: 'Cleanup gcloud CLI and metadata'
         run: |
-          gcloud compute instances remove-metadata webserver --keys=.ssh/google_compute_engine.pub --zone=northamerica-northeast2-a
+          echo "KEY=${{ env.RUNNER_NAME }}:$(cat .ssh/google_compute_engine.pub" >> $GITHUB_ENV
+          gcloud compute instance remove-metadata --key="${{ env.KEY }}"
+          
+          
       
