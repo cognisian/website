@@ -89,5 +89,5 @@ jobs:
           
       - name: 'Cleanup gcloud CLI and metadata'
         run: |
-          gcloud compute instances remove-metadata webserver --keys=.ssh/google_compute_engine --zone=northamerica-northeast2-a
+          gcloud compute instances remove-metadata webserver --keys=.ssh/google_compute_engine.pub --zone=northamerica-northeast2-a
       
