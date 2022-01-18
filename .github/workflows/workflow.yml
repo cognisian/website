@@ -46,6 +46,7 @@ jobs:
         id: generate-website
         run: |
           pelican content --output output --settings publishconf.py
+          
       - name: Package the website artifact
         uses: actions/upload-artifact@v2
         with:
@@ -63,7 +64,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
       
-    steps:
+    steps:   
       - name: Get website artifact
         uses: actions/download-artifact@v2
         with:
@@ -85,14 +86,18 @@ jobs:
           
       - name: 'Copy Website files to instance'
         run: |
-          gcloud compute scp --recurse --ssh-key-expire-after=5m  --zone=northamerica-northeast2-a web-files/* webserver:/var/www/artificialbelligerence.com/htdocs
+          gcloud compute scp --recurse --ssh-key-expire-after=5m --zone=northamerica-northeast2-a web-files/* webserver:/var/www/artificialbelligerence.com/htdocs
       
       - name: 'Remove runner metadata'
+        env:
+          CURRENT_FILE: './ssh_current_keys'
+          UPDATE_FILE: './ssh_update_keys'
         run: |
           # Write out the current set of public keys
-          echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > .ssh/current_keys
-          # Remove the key associated with RUNNER_NAME
-          # Save new file
+          echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
+          # Remove the key associated with RUNNER_NAME and save file
+          sed "/^$RUNNER_NAME/dg" > ${{ env.UPDATE_FILE }}
           # Add the keys back minus runner and remove files
-          # gcloud compute instances add-metadata webserver--zone=northamerica-northeast2-a  --metadata-from-file=ssh-keys=.ssh/update_keys
-          rm -f .ssh/{current, update}_keys
+          gcloud compute instances add-metadata webserver --zone=northamerica-northeast2-a --metadata-from-file=ssh-keys=${{ env.UPDATE_FILE }}
+          rm -f ${{ env.CURRENT_FILE }}
+          rm -f ${{ env.UPDATE_FILE }}
