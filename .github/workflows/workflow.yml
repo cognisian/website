@@ -93,6 +93,7 @@ jobs:
           
       - name: 'Cleanup gcloud CLI and metadata'
         run: |
+          echo ${{ env.METADATA }}
           gcloud compute instances remove-metadata webserver --keys="${{ env.METADATA }}" --zone=northamerica-northeast2-a
           
           
