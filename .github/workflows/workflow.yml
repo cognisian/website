@@ -87,14 +87,11 @@ jobs:
         run: |
           gcloud compute scp --recurse web-files/* webserver:/var/www/artificialbelligerence.com/htdocs --zone=northamerica-northeast2-a
       
-      - name: ' Get the metadata used for copy'
-        run: |
-          echo "METADATA=$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='yaml(metadata.items[].value)' | grep runner)" >> $GITHUB_ENV
-          
-      - name: 'Cleanup gcloud CLI and metadata'
-        run: |
-          echo ${{ env.METADATA }}
-          gcloud compute instances remove-metadata webserver --keys="${{ env.METADATA }}" --zone=northamerica-northeast2-a
-          
-          
+#      - name: ' Get the metadata used for copy'
+#        run: |
+#          echo "METADATA=$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='yaml(metadata.items[].value)' | grep runner)" >> $GITHUB_ENV
+#          
+#      - name: 'Cleanup gcloud CLI and metadata'
+#        run: |
+ #         gcloud compute instances remove-metadata webserver --keys="${{ env.METADATA }}" --zone=northamerica-northeast2-a
       
