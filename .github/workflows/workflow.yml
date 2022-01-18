@@ -96,6 +96,7 @@ jobs:
           # Write out the current set of public keys
           echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
           # Remove the key associated with RUNNER_NAME and save file
+          echo "$RUNNER_NAME"
           sed "/^$RUNNER_NAME/d" > ${{ env.UPDATE_FILE }}
           # Add the keys back minus runner and remove files
           gcloud compute instances add-metadata webserver --zone=northamerica-northeast2-a --metadata-from-file=ssh-keys=${{ env.UPDATE_FILE }}
