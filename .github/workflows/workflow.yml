@@ -85,13 +85,14 @@ jobs:
           
       - name: 'Copy Website files to instance'
         run: |
-          gcloud compute scp --recurse web-files/* webserver:/var/www/artificialbelligerence.com/htdocs --zone=northamerica-northeast2-a
+          gcloud compute scp --recurse --ssh-key-expire-after=5m  --zone=northamerica-northeast2-a web-files/* webserver:/var/www/artificialbelligerence.com/htdocs
       
-#      - name: ' Get the metadata used for copy'
-#        run: |
-#          echo "METADATA=$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='yaml(metadata.items[].value)' | grep runner)" >> $GITHUB_ENV
-#          
-#      - name: 'Cleanup gcloud CLI and metadata'
-#        run: |
- #         gcloud compute instances remove-metadata webserver --keys="${{ env.METADATA }}" --zone=northamerica-northeast2-a
-      
+      - name: 'Remove runner metadata'
+        run: |
+          # Write out the current set of public keys
+          echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > .ssh/current_keys
+          # Remove the key associated with RUNNER_NAME
+          # Save new file
+          # Add the keys back minus runner and remove files
+          # gcloud compute instances add-metadata webserver--zone=northamerica-northeast2-a  --metadata-from-file=ssh-keys=.ssh/update_keys
+          rm -f .ssh/{current, update}_keys
