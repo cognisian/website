@@ -94,8 +94,8 @@ jobs:
           UPDATE_FILE: './ssh_update_keys'
         run: |
           echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
-          echo "$GITHUB_ACTOR"
-          sed "/^$GITHUB_ACTOR/d" ${{ env.CURRENT_FILE }} > ${{ env.UPDATE_FILE }}
+          cat ${{ env.CURRENT_FILE }}
+          sed "/^runner/d" ${{ env.CURRENT_FILE }} > ${{ env.UPDATE_FILE }}
           cat ${{ env.UPDATE_FILE }}
           gcloud compute instances add-metadata webserver --zone=northamerica-northeast2-a --metadata-from-file=ssh-keys=${{ env.UPDATE_FILE }}
           rm -f ${{ env.CURRENT_FILE }}
