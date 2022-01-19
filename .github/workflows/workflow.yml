@@ -94,7 +94,6 @@ jobs:
           UPDATE_FILE: './ssh_update_keys'
         run: |
           echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
-          echo $RUNNER_NAME
           echo "$RUNNER_NAME"
           echo ${{ RUNNER_NAME }}
           echo "${{ RUNNER_NAME }}"
