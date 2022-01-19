@@ -95,7 +95,6 @@ jobs:
         run: |
           echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
           echo "$RUNNER_NAME"
-          echo "${{ RUNNER_NAME }}"
           echo "${{ env.RUNNER_NAME }}"
           sed "/^${{ RUNNER_NAME }}/d" ${{ env.CURRENT_FILE }} > ${{ env.UPDATE_FILE }}
           gcloud compute instances add-metadata webserver --zone=northamerica-northeast2-a --metadata-from-file=ssh-keys=${{ env.UPDATE_FILE }}
