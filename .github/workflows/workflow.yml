@@ -92,10 +92,9 @@ jobs:
         env:
           CURRENT_FILE: './ssh_current_keys'
           UPDATE_FILE: './ssh_update_keys'
-          USER: './ssh_update_keys'
+          USER: $(whoami)
         run: |
           echo "$(gcloud compute instances describe webserver --zone=northamerica-northeast2-a --format='json(metadata.items[])' | jq -rc '.metadata.items[] | select(.key=="ssh-keys") | .value')" > ${{ env.CURRENT_FILE }}
-          echo "$(whoami)"
           echo "${{ env.USER }}"
           sed "/^${{ env.USER }}/d" ${{ env.CURRENT_FILE }} > ${{ env.UPDATE_FILE }}
           cat "${{ env.UPDATE_FILE }}"
