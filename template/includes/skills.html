@@ -1,0 +1,19 @@
+{% if SKILLS %}
+<section class="skills-section section">
+    <h2 class="section-title"><i class="fa fa-rocket bg-primary"></i>Skills &amp; Proficiency</h2>
+    <div class="skillset">        
+        {% for skill in SKILLS %}
+            <div class="item">
+                <h3 class="level-title">{{ skill['title']}}</h3>
+                <div class="level-bar">
+                	{% for item in skill['items'] %}
+                    <div class="level-bar-inner">
+                    	<span>{{ item }}</span>
+                    </div>
+                    {% endfor %}                                      
+                </div><!--//level-bar-->                                 
+            </div><!--//item-->
+        {% endfor %}
+    </div>  
+</section><!--//skills-section-->
+{% endif%}

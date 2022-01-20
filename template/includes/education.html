@@ -1,0 +1,14 @@
+{% if EDUCATIONS %}
+<section class="section education-section">
+<h2 class="section-title"><i class="fa fa-university bg-primary"></i>Education</h2>
+{% for education in EDUCATIONS %}
+    <div class="item">
+    	<div class="upper-row">
+		    <h3 class="degree">{{ education['degree'] }}</h3>
+		    <div class="time">{{ education['time'] }}</div>
+		</div>
+		<div class="institute">{{ education['meta'] }}</div>
+	</div><!--//item-->
+{% endfor %}
+</section><!--//education-container-->
+{% endif %}

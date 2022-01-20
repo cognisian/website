@@ -9,6 +9,7 @@ Home
 :title: Welcome to My Home
 
 I am a programmer with extensive experience designing and creating full stack tools. 
+Check out the `resume <{filename}/pages/resume.rst>`_.
 
 I also from time to time get a flash of  creative writing inspiration which can be found
 `here <{filename}/pages/poetry.rst>`_. 
