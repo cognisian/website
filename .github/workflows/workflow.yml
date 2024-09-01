@@ -9,13 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
           
       - name: Checkout website source
         id: checkout-master
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         
       - name: Cache dependencies
         uses: actions/cache@v2
@@ -31,13 +31,13 @@ jobs:
           pip install -r requirements.txt
       
       - name: Install Pelican plugins
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: 'getpelican/pelican-plugins'
           path: 'plugins'
         
       - name: Install Pelican themes
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: 'getpelican/pelican-themes'
           path: 'themes'
@@ -48,7 +48,7 @@ jobs:
           pelican content --output output --settings publishconf.py
           
       - name: Package the website artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: website-output
           path: |
@@ -66,7 +66,7 @@ jobs:
       
     steps:   
       - name: Get website artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: website-output
           path: web-files/
@@ -76,13 +76,13 @@ jobs:
           sudo chown -R www-data:www-data web-files/*
           
       - name: Setup Google Authorization
-        uses: 'google-github-actions/auth@v0'
+        uses: 'google-github-actions/auth@v2'
         with:
           workload_identity_provider: '${{ secrets.WORKLOAD_ID_PROVIDER }}'
           service_account: '${{ secrets.DEPLOY_SERVICE_ACCOUNT }}'
         
       - name: 'Set up gcloud CLI'
-        uses: 'google-github-actions/setup-gcloud@v0'
+        uses: 'google-github-actions/setup-gcloud@v2'
           
       - name: 'Copy Website files to instance'
         run: |
