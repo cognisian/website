@@ -48,7 +48,7 @@ jobs:
           pelican content --output output --settings publishconf.py
           
       - name: Package the website artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: website-output
           path: |
